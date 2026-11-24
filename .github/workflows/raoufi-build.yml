@@ -19,17 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Show available npm scripts
-        run: npm run || true
-
       - name: Build
-        run: |
-          if node -e "process.exit(require('./package.json').scripts?.build ? 0 : 1)"; then
-            npm run build
-          else
-            echo "No 'build' script in package.json. Check the list above and edit this step."
-            exit 1
-          fi
+        run: npm run build:prod
+
+      - name: Show output files
+        run: ls -R dist | head -80
 
       - name: Collect packages
         run: |
